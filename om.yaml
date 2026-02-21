@@ -1,0 +1,25 @@
+develop:
+  default:
+    readme: |
+      🍾 Welcome to the **nixos-cluster-manager** project
+health:
+  default:
+    flake-enabled: {}
+    nix-version:
+      supported: '>=2.30.0'
+    max-jobs: {}
+    trusted-users:
+      enable: true
+    caches:
+      required:
+        - https://cache.nixos.org/
+    direnv:
+      enable: true
+      required: false
+    shell:
+      enable: true
+      required: false
+ci:
+  default:
+    root:
+      dir: .

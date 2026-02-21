@@ -1,0 +1,1 @@
+Require explicit approval for adding any new tooling to the repository that is not one of the following: Nix, Rust, Terragrunt, Kubernetes
