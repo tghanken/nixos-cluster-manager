@@ -10,6 +10,7 @@
 2.  **Declarative Configuration**: Define the cluster state using Nix attribute sets.
 3.  **Ease of Use**: Provide a CLI and optional TUI for common operations like validation, bootstrapping, deployment, backups, and restoration.
 4.  **Security**: Integrate with `agenix` for secret management and assume secure defaults like Tailscale networking.
+5.  **Atomic Rollbacks**: Automatically roll back all hosts in the deployment process if any single host fails to deploy.
 
 ## Inventory Concept
 
