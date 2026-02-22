@@ -6,8 +6,6 @@ Files in this directory must define an attribute set where each key is the name 
 
 **Attributes:**
 
--   `isNormalUser`: (Required, Boolean) Whether the user is a normal user.
--   `extraGroups`: (Optional, List of Strings) Additional groups for the user.
 -   `sshKeys`: (Optional, List of Strings) SSH public keys for the user.
 
 **Example Structure:**
@@ -15,8 +13,6 @@ Files in this directory must define an attribute set where each key is the name 
 ```nix
 {
   myUser = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
     sshKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI..." ];
   };
 }

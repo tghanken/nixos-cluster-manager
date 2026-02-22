@@ -4,16 +4,16 @@ Manages secrets using `agenix`. This directory contains the secret definitions.
 
 **Attributes:**
 
--   `file`: (Required, Path) Path to the encrypted `.age` file.
+-   `rekeyUsers`: (Optional, List of Strings) Additional users authorized to rekey this secret.
 
-**Note**: Rekeying rules are derived from the users and deploy keys specified in the inventory. All deploy keys are implicitly considered rekey keys.
+**Note**: The file path is derived and not needed as an attribute. All deploy keys and machines where the service is deployed are implicitly considered rekey keys.
 
 **Example Structure:**
 
 ```nix
 {
   "db-password" = {
-    file = ./secrets/db-password.age;
+    rekeyUsers = [ "admin" ];
   };
 }
 ```

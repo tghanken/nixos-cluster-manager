@@ -8,9 +8,9 @@ Defines the services running on the cluster. Services can have dependencies and 
 -   `replicas`: (Optional, Int) Number of desired replicas (for orchestration purposes). Defaults to 1.
 -   `stateDirs`: (Optional, List of Strings) List of strings representing stateful directories that need persistence.
 -   `dependsOn`: (Optional, List of Strings) List of strings referencing other services this service depends on.
--   `networking`: (Implicit) Tailscale integration is assumed for all services.
 -   `secrets`: (Optional, List of Strings) List of strings referencing keys in the `secrets` attribute set.
 -   `backups`: (Optional, List of Attribute Sets) Backup strategies.
+    -   `name`: (Required, String) The name of the backup strategy (for targeting via CLI).
     -   `type`: (Required, String) "local" or "remote".
     -   `command`: (Required, String) The backup command to run.
     -   `restore`: (Required, String) The restore command to run.
