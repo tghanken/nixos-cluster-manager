@@ -1,0 +1,63 @@
+merge_protections:
+  - name: Enforce conventional commit
+    description: Make sure that we follow https://www.conventionalcommits.org/en/v1.0.0/
+    if: []
+    success_conditions:
+      - "title ~= ^(fix|feat|docs|style|refactor|perf|test|build|ci|chore|revert)(?:\\(.+\\))?:"
+  - name: CI Success
+    description: Enforce required CI checks
+    if: []
+    success_conditions:
+      - "check-success = All Garnix checks"
+  - name: Require code review
+    description: Require a code review whenever a maintainer is not the PR author
+    if:
+      - author != tghanken
+    success_conditions:
+      - and:
+          - "#approved-reviews-by >= 1"
+          - "#review-threads-unresolved = 0"
+merge_queue:
+  dequeued_label: dequeued
+  max_parallel_checks: 5
+  mode: parallel
+  queued_label: queued
+  reset_on_external_merge: always
+  skip_intermediate_results: false
+  status_comments: all
+queue_rules:
+  - autoqueue: true
+    update_method: merge
+    name: main
+    branch_protection_injection_mode: queue
+    merge_method: squash
+    batch_size: 5
+    queue_conditions:
+      - and:
+          - base = main
+priority_rules:
+  - name: prioritize revert
+    priority: high
+    conditions:
+      - and:
+          - "title ~= ^(revert)(?:\\(.+\\))?:"
+          - base = main
+    allow_checks_interruption: false
+pull_request_rules:
+  - name: Label conflicting pull requests
+    description: Add a label to a pull request with conflict to spot it easily
+    conditions:
+      - conflict
+      - -closed
+    actions:
+      label:
+        toggle:
+          - conflict
+  - name: Add a queue label when PR is queued
+    description: Toggle the queue label when a pull request is (un)queued.
+    conditions:
+      - queue-position > 0
+    actions:
+      label:
+        toggle:
+          - merge-queued

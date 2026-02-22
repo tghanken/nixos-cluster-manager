@@ -1,0 +1,1 @@
+These files provide additional rules for you (the agent) to use when working on different areas of the codebase.  Always read rules related to your area before making changes.
