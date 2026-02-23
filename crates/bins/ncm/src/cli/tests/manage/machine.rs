@@ -1,19 +1,21 @@
 use super::super::*;
 
-#[test]
-fn test_manage_machine_create() {
-    let cmd_args = ["ncm", "manage", "machine", "create", "new-machine"];
-    assert!(Cli::try_parse_from(cmd_args).is_ok());
-}
+proptest! {
+    #[test]
+    fn test_manage_machine_proptest(
+        args in prop_oneof![
+            arb_manage_args("machine", "create", ManageNameMode::Required, false),
+            arb_manage_args("machine", "list", ManageNameMode::None, false),
+            arb_manage_args("machine", "remove", ManageNameMode::Required, false),
+        ]
+    ) {
+        prop_assert!(Cli::try_parse_from(args).is_ok());
+    }
 
-#[test]
-fn test_manage_machine_list() {
-    let cmd_args = ["ncm", "manage", "machine", "list"];
-    assert!(Cli::try_parse_from(cmd_args).is_ok());
-}
-
-#[test]
-fn test_manage_machine_remove() {
-    let cmd_args = ["ncm", "manage", "machine", "remove", "old-machine"];
-    assert!(Cli::try_parse_from(cmd_args).is_ok());
+    #[test]
+    fn test_manage_machine_poisoned(
+        args in arb_manage_args("machine", "create", ManageNameMode::Required, true)
+    ) {
+        prop_assert!(Cli::try_parse_from(args).is_err());
+    }
 }

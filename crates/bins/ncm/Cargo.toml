@@ -10,6 +10,8 @@ ncm-core = { workspace = true }
 [dev-dependencies]
 assert_cmd = "2.0"
 predicates = "3.1"
+proptest = "1.5"
+proptest-derive = "0.5"
 
 [package]
 name = "ncm"

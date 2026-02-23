@@ -90,6 +90,9 @@ pub enum Commands {
         /// Named backup target from the inventory
         #[arg(long, short)]
         target: Option<String>,
+        /// Force restore without confirmation
+        #[arg(long, short)]
+        force: bool,
     },
     /// Helper commands to manage inventory objects
     Manage {

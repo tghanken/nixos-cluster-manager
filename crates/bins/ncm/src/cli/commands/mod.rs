@@ -40,7 +40,8 @@ pub async fn handle(cli: Cli) -> anyhow::Result<()> {
             node,
             all,
             target,
-        } => restore::handle(service, node, all, target, cli.no_input, cli.no_tui).await?,
+            force,
+        } => restore::handle(service, node, all, target, force, cli.no_input, cli.no_tui).await?,
         Commands::Manage { action } => manage::handle(action).await?,
     }
 

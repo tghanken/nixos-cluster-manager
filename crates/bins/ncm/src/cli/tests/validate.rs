@@ -1,19 +1,23 @@
 use super::*;
 
-#[test]
-fn test_validate_default() {
-    let cmd_args = ["ncm", "validate"];
-    assert!(Cli::try_parse_from(cmd_args).is_ok());
-}
+proptest! {
+    #[test]
+    fn test_validate_proptest(args in arb_cli_args(
+        vec!["ncm".to_string(), "validate".to_string()],
+        vec![],
+        vec![],
+        false
+    )) {
+        prop_assert!(Cli::try_parse_from(args).is_ok());
+    }
 
-#[test]
-fn test_validate_with_inventory() {
-    let cmd_args = ["ncm", "--inventory", "custom/path", "validate"];
-    assert!(Cli::try_parse_from(cmd_args).is_ok());
-}
-
-#[test]
-fn test_validate_with_global_flags() {
-    let cmd_args = ["ncm", "--no-input", "--no-tui", "validate"];
-    assert!(Cli::try_parse_from(cmd_args).is_ok());
+    #[test]
+    fn test_validate_poisoned(args in arb_cli_args(
+        vec!["ncm".to_string(), "validate".to_string()],
+        vec![],
+        vec![],
+        true
+    )) {
+        prop_assert!(Cli::try_parse_from(args).is_err());
+    }
 }
