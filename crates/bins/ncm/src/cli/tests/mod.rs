@@ -3,6 +3,7 @@ use proptest::prelude::*;
 
 mod backup;
 mod bootstrap;
+mod debug;
 mod deploy;
 mod manage;
 mod restore;
