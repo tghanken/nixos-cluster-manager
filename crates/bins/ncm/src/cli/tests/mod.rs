@@ -109,8 +109,6 @@ pub fn arb_cli_args(
 pub enum ManageNameMode {
     None,
     Required,
-    #[allow(dead_code)]
-    Optional,
 }
 
 /// Generates random arguments for `manage` subcommands.
@@ -123,9 +121,6 @@ pub fn arb_manage_args(
     let name_strategy = match name_mode {
         ManageNameMode::None => Just(None).boxed(),
         ManageNameMode::Required => "[a-zA-Z0-9._][a-zA-Z0-9._-]{0,20}".prop_map(Some).boxed(),
-        ManageNameMode::Optional => {
-            prop::option::weighted(0.5, "[a-zA-Z0-9._][a-zA-Z0-9._-]{0,20}").boxed()
-        }
     };
 
     (
