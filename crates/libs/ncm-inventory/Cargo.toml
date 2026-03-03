@@ -1,11 +1,11 @@
-[package]
-name = "ncm-inventory"
-version = "0.1.0"
-edition = "2021"
-
 [dependencies]
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
 thiserror = { workspace = true }
 anyhow = { workspace = true }
 duct = { workspace = true }
+
+[package]
+name = "ncm-inventory"
+version = "0.1.0"
+edition = "2021"

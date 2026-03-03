@@ -12,8 +12,7 @@
     inherit path;
     fileset = lib.fileset.unions [
       (path + /Cargo.toml)
-      (lib.fileset.fileFilter (file: file.hasExt "rs") (path + /src))
-      (lib.fileset.maybeMissing (path + /build.rs))
+      (lib.fileset.fileFilter (file: file.hasExt "rs") path)
     ];
   };
 
@@ -29,6 +28,7 @@
   in {
     ncm-core = makeCrate (dir + /ncm-core);
     ncm-tui = makeCrate (dir + /ncm-tui);
+    ncm-inventory = makeCrate (dir + /ncm-inventory);
   };
 
   allCrates = bins // libs;

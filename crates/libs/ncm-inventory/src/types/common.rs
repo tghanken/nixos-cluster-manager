@@ -35,7 +35,11 @@ impl<T: ToNix> ToNix for HashMap<String, T> {
         for key in keys {
             let value = self.get(key).unwrap();
             // Nix attribute names can be unquoted if simple identifiers, but quoting them is always safe.
-            parts.push(format!("  {} = {};", escape_nix_string(key), value.to_nix()));
+            parts.push(format!(
+                "  {} = {};",
+                escape_nix_string(key),
+                value.to_nix()
+            ));
         }
         parts.push("}".to_string());
         parts.join("\n")

@@ -1,7 +1,7 @@
-use std::path::Path;
+use anyhow::{Context, Result};
 use duct::cmd;
 use serde::de::DeserializeOwned;
-use anyhow::{Context, Result};
+use std::path::Path;
 
 pub fn parse_nix_file<T: DeserializeOwned>(path: &Path) -> Result<T> {
     // `duct` handles process cancellation and cleanup better than std::process::Command.
@@ -12,6 +12,5 @@ pub fn parse_nix_file<T: DeserializeOwned>(path: &Path) -> Result<T> {
         .read()
         .context("Failed to execute nix eval or it returned non-zero exit code")?;
 
-    serde_json::from_str(&json_str)
-        .context("Failed to parse JSON output from nix eval")
+    serde_json::from_str(&json_str).context("Failed to parse JSON output from nix eval")
 }
